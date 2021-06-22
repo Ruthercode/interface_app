@@ -8,11 +8,13 @@ import {MatListModule} from '@angular/material/list';
 import { DBFormComponent } from './dbform/dbform.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { HeaderComponent } from './header/header.component'
+import { HeaderComponent } from './header/header.component';
+import { EditorComponent } from './editor/editor.component'
 
 let routes: Routes = [
   { path: '', component: DBFormComponent },
-  { path: 'tables', component: DBTableComponent}
+  { path: 'tables', component: DBTableComponent},
+  { path: 'editor', component: EditorComponent}
 ];
 
 
@@ -21,7 +23,7 @@ let routes: Routes = [
     DBTableComponent,
     DBFormComponent,
     HeaderComponent,
-    HeaderComponent
+    EditorComponent,
   ],
   imports: [
     BrowserModule,

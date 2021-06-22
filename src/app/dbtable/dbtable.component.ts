@@ -12,7 +12,7 @@ export class DBTableComponent{
 
   constructor(private DBService: DatabaseService)
   {
-    this.DBService.getTables()
+    this.DBService.getTableNames()
     .subscribe(res => {
       this.tables = res["tables"];
     });

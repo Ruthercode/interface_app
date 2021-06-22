@@ -34,7 +34,7 @@ export class DatabaseService {
     return `postgresql://${this.user}:${this.password}@${this.host}:${this.port}/${this.database}`;
   }
 
-  getTables(): Observable<any> {
+  getTableNames(): Observable<any> {
     return this.http.get(this.endpoint + '/get_list')
     .pipe(tap(_ => console.log('fetched table names')),
     catchError(this.handleError)
