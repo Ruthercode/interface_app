@@ -5,7 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { DBFormComponent } from './dbform/dbform.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DbtableComponent } from './dbtable/dbtable.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   entryComponents: [ DbtableComponent ],
@@ -18,9 +20,16 @@ import {HttpClientModule} from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatListModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi   : true,
+    }
+  ],
   bootstrap: [DBFormComponent]
 })
 export class AppModule { }

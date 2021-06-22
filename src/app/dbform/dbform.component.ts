@@ -1,17 +1,22 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
+import { Component, 
+         OnDestroy, 
+         ViewChild, 
+         ViewContainerRef, 
+         ComponentFactoryResolver, 
+         ComponentFactory } from '@angular/core';
 
 import { FormBuilder } from '@angular/forms';
 import { DbtableComponent } from '../dbtable/dbtable.component'
 
-import { DatabaseInfoService } from '../services/database.service';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-dbform',
   templateUrl: './dbform.component.html',
   styleUrls: ['./dbform.component.css']
 })
-export class DBFormComponent implements OnInit {
-  @ViewChild("alertContainer", {static: false, read: ViewContainerRef }) container;
+export class DBFormComponent implements OnDestroy {
+  @ViewChild("TablesList", {static: false, read: ViewContainerRef }) container;
 
   componentRef;
 
@@ -23,10 +28,10 @@ export class DBFormComponent implements OnInit {
     port: ''
   });
 
-  constructor(private formBuilder: FormBuilder, private resolver: ComponentFactoryResolver, private DBServise: DatabaseInfoService) { }
+  constructor(private formBuilder: FormBuilder, 
+              private resolver: ComponentFactoryResolver, 
+              private DBServise: DatabaseService) { }
 
-  ngOnInit(): void {
-  }
 
   onSubmit(): void {
     
