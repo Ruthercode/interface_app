@@ -7,10 +7,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class DatabaseInfoService {
-  constructor(private http : HttpClient) {
-
-  }
+export class DatabaseService {
+  constructor(private http : HttpClient) {}
 
   public user: string = "";
   public host: string = "";
@@ -18,7 +16,7 @@ export class DatabaseInfoService {
   public database: string = "";
   public port: number = 0;
   
-  private endpoint = 'http://127.0.0.1:5000/';
+  private endpoint = 'http://127.0.0.1:5000';
 
   private handleError(error: HttpErrorResponse): any {
     if (error.error instanceof ErrorEvent) {
@@ -32,27 +30,8 @@ export class DatabaseInfoService {
       'Something bad happened; please try again later.');
   }
 
-  private extractData(res: Response): any {
-    const body = res;
-    return body || { };
-  }
-
-  authorize(): Observable<any> {
-    return this.http.get(this.endpoint + '/login', {
-      params: {
-        user: this.user,
-        host: this.host,
-        password: this.password,
-        database: this.database,
-        port: this.port
-      },
-      observe: 'response',
-      responseType: "text"
-    })
-    .pipe(
-      tap(_ => console.log('fetched authorize')),
-      catchError(this.handleError)
-    );
+  public getConnectionString() : string {
+    return `postgresql://${this.user}:${this.password}@${this.host}:${this.port}/${this.database}`;
   }
 
   getTables(): Observable<any> {
