@@ -7,7 +7,7 @@ import { DatabaseService } from '../services/database.service';
   templateUrl: './dbtable.component.html',
   styleUrls: ['./dbtable.component.css']
 })
-export class DbtableComponent{
+export class DBTableComponent{
   tables: string[] = [];
 
   constructor(private DBService: DatabaseService)
