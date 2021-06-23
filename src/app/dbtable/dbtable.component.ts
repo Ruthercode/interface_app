@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 
 import { DatabaseService } from '../services/database.service';
 
@@ -7,7 +7,7 @@ import { DatabaseService } from '../services/database.service';
   templateUrl: './dbtable.component.html',
   styleUrls: ['./dbtable.component.css']
 })
-export class DBTableComponent{
+export class DBTableComponent {
   tables: string[] = [];
 
   constructor(private DBService: DatabaseService)
@@ -16,6 +16,8 @@ export class DBTableComponent{
     .subscribe(res => {
       this.tables = res["tables"];
     });
+
+    
   }
 
 }

@@ -21,7 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
         'Authorization': `${this.DBService.getConnectionString()}`,
       },
     });
-
+    
     return next.handle(req);
   }
 }

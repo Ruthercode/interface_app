@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DatabaseService {
-  constructor(private http : HttpClient) {}
+  
+  constructor(private http : HttpClient)  {}
 
   public user: string = "";
   public host: string = "";
@@ -36,6 +37,13 @@ export class DatabaseService {
 
   getTableNames(): Observable<any> {
     return this.http.get(this.endpoint + '/get_list')
+    .pipe(tap(_ => console.log('fetched table names')),
+    catchError(this.handleError)
+    );
+  }
+
+  getTable(tableName): Observable<any> {
+    return this.http.get(this.endpoint + '/get_table?table=' + tableName)
     .pipe(tap(_ => console.log('fetched table names')),
     catchError(this.handleError)
     );
