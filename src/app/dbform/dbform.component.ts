@@ -26,9 +26,6 @@ export class DBFormComponent{
 
 
   onSubmit(): void {
-    
-    console.warn('Your order has been submitted', this.checkoutForm.value);
-    
     this.DBServise.user = this.checkoutForm.value['user'];
     this.DBServise.host = this.checkoutForm.value['host'];
     this.DBServise.password = this.checkoutForm.value['password'];

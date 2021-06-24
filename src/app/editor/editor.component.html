@@ -1,18 +1,28 @@
 <article>
-<table mat-table [dataSource]="dataSource">
+<table mat-table #tab [dataSource]="dataSource">
+    
     <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns">
-    <th mat-header-cell *matHeaderCellDef>
-        {{col}}
-    </th>
-    <td mat-cell *matCellDef="let element">
-        <mat-form-field>
-        <input [type]="dataSchema[col]" matInput [(ngModel)]="element[col]">
-        </mat-form-field>
-    </td>
+        <th mat-header-cell *matHeaderCellDef>
+            {{col}}
+        </th>
+        <div *ngIf="col !=='Actions'">
+            <td mat-cell  *matCellDef="let element">
+                <mat-form-field>
+                <input [type]="dataSchema[col]" matInput [(ngModel)]="element[col]">
+                </mat-form-field>
+            </td>
+        </div>
+        <div *ngIf="col==='Actions'">
+            <td mat-cell  *matCellDef="let row">
+                <button (click)="onDelete(row)">Delete</button>
+            </td>
+        </div>
     </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
 <button (click)="onSave()">Save</button>
+<button (click)="add()">Add</button>
 </article>
