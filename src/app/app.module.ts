@@ -14,8 +14,10 @@ import { MatTableModule } from '@angular/material/table'
 import {MatFormFieldModule} from '@angular/material/form-field'
 import { DatabaseService } from './services/database.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { MatInputModule } from '@angular/material/input';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 let routes: Routes = [
   { path: '', component: DBFormComponent },
   { path: 'tables', component: DBTableComponent},
@@ -32,6 +34,8 @@ let routes: Routes = [
   ],
   imports: [
     BrowserModule,
+    NgbPaginationModule,
+    NgbAlertModule,
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
@@ -40,7 +44,8 @@ let routes: Routes = [
     MatTableModule,
     MatInputModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    NgbModule
   ],
   providers: [
     {

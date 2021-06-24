@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTable } from '@angular/material/table';
 import { ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
 import { DatabaseService } from '../services/database.service';
@@ -10,11 +11,13 @@ import {cloneDeep} from 'lodash';
   styleUrls: ['./editor.component.css']
 })
 export class EditorComponent {
+  @ViewChild(MatTable)tab!: MatTable<any>;
+
   table : string = "";
   private querySubscription: Subscription;
   
   displayedColumns: string[] = [];
-  dataSource = [];
+  dataSource: {}[] = [];
   savedDataSource = [];
   dataSchema = {};
 
@@ -29,8 +32,10 @@ export class EditorComponent {
     this.DBService.getTable(this.table)
     .subscribe(res => {
       this.displayedColumns = res["columns"];
+      this.displayedColumns.push("Actions");
+
       this.dataSource = res["data"];
-      this.savedDataSource = cloneDeep(res["data"]);
+      this.savedDataSource = cloneDeep(this.dataSource);
       this.dataSchema = res["type"];
 
     });
@@ -39,6 +44,28 @@ export class EditorComponent {
 
   onSave() : void
   {
-    
+    console.log(this.dataSource);
+    this.DBService.updateTable(this.table, this.dataSource, this.savedDataSource)
+    .subscribe(
+    );
+  }
+
+  onDelete(row) : void {
+    this.dataSource = this.dataSource.filter(x => x !== row);
+    this.tab.renderRows();
+  }
+
+  add() : void {
+    let realColumns = cloneDeep(this.displayedColumns);
+    realColumns.pop();
+    console.log(realColumns);
+
+    let emptyToPush = {};
+    realColumns.forEach(element => {
+      emptyToPush[element] = "";
+    });
+    this.dataSource.push(emptyToPush);
+    console.log(this.dataSource);
+    this.tab.renderRows();
   }
 }
