@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Location} from '@angular/common';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -8,12 +8,12 @@ import {Location} from '@angular/common';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private _location: Location) { }
+  constructor(private location: Location, public router: Router) { }
 
   ngOnInit(): void {
   }
 
   getLastRoute(): void {
-    this._location.back();
+    this.location.back();
   }
 }
